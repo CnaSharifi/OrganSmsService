@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login - Organ SMS service</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/animate/animate.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/css-hamburgers/hamburgers.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/animsition/css/animsition.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/select2/select2.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/daterangepicker/daterangepicker.css'%}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/css/util.css'%}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/css/main.css'%}">
+
+<meta name="robots" content="noindex, follow">
+</head>
+
+<body>
+
+<div class="container-contact100">
+<div class="wrap-contact100">
+<form class="contact100-form validate-form" method='POST'>{% csrf_token %}
+<span class="contact100-form-title">
+<span style="font-size:55px">🔓</span><br>
+<span style="font-size:25px;color:#ec4545">{{ form.errors }}</span>
+</span>
+<div class="wrap-input100 validate-input" data-validate="Name is required">
+<span class="label-input100">نــام کـاربـری </span>
+<input class="input100" type="text" name="username" placeholder="username" required>
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+<span class="label-input100">رمـز عـبور</span>
+<input class="input100" type="text" name="password" placeholder="password" required>
+<span class="focus-input100"></span>
+</div>
+
+    <div class="wrap-input100 validate-input">
+        {{ form.captcha }}
+        <span class="focus-input100"></span>
+
+    </div>
+
+
+<div class="container-contact100-form-btn">
+<div class="wrap-contact100-form-btn">
+<div class="contact100-form-bgbtn"></div>
+<button class="contact100-form-btn" type='submit'>
+<span>
+ورود
+<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+</span>
+</button>
+</div>
+<span style="padding-top:25px;"> در صـورت نداشـتن حـساب کاربـری  <a style="font-size: 17px;color:#ec4545"  href="register/"> ثـبـتــ نامــ </a> کنـید</span>
+</div>
+</form>
+
+</div>
+</div>
+
+
+
+
+</body>
+</html>

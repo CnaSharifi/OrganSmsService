@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+<title>Organ SMS service</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/animate/animate.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/css-hamburgers/hamburgers.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/animsition/css/animsition.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/select2/select2.min.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/daterangepicker/daterangepicker.css'%}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/css/util.css'%}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'servise_app/css/main.css'%}">
+
+<meta name="robots" content="noindex, follow">
+</head>
+
+<body>
+<div class="container-contact100">
+<div class="wrap-contact100">
+<form class="contact100-form validate-form">{% csrf_token %}
+<span class="contact100-form-title">
+<span style="font-size:65px;">📩</span>
+</span>
+<div class="wrap-input100 validate-input" data-validate="Name is required">
+<span class="label-input100">نـام و نـام خــانـوادگــی </span>
+<input class="input100" type="text" name="title" placeholder="لطفا نام خود را وارد کنید ">
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+<span class="label-input100">ایـمـیل</span>
+<input class="input100" type="text" name="email" placeholder=" لطفا ایمیل خود را وارد کنید  ">
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100 input100-select">
+<span class="label-input100"> لــطــفا اسـتان خــود را انتـخابــ کنــید  </span>
+<div id="test">
+<select id="selectBox1">
+
+
+</select>
+</div>
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100 input100-select" >
+<span class="label-input100">لــطــفا شــهـر خـود را انتـخابــ کنـیـد</span>
+<div>
+<select name="city" id="selectBox2">
+
+
+</select>
+</div>
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100 validate-input" data-validate="Message is required">
+<span class="label-input100">پـــیـــام </span>
+<textarea class="input100" name="message" placeholder="لـطـفـا پـیـام خـود را تـایـپ کـنـیـد "></textarea>
+<span class="focus-input100"></span>
+</div>
+<div class="container-contact100-form-btn">
+<div class="wrap-contact100-form-btn">
+<div class="contact100-form-bgbtn"></div>
+<button class="contact100-form-btn">
+<span>
+ارســال
+<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div id="dropDownSelect1"></div>
+
+<script src="{% static 'servise_app/vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+
+<script src="{% static 'servise_app/vendor/animsition/js/animsition.min.js'%}"></script>
+
+<script src="{% static 'servise_app/vendor/bootstrap/js/popper.js'%}"></script>
+<script src="{% static 'servise_app/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+
+<script src="{% static 'servise_app/vendor/select2/select2.min.js'%}"></script>
+<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+
+<script src="{% static 'servise_app/vendor/daterangepicker/moment.min.js'%}"></script>
+<script src="{% static 'servise_app/vendor/daterangepicker/daterangepicker.js'%}"></script>
+
+<script src="{% static 'servise_app/vendor/countdowntime/countdowntime.js'%}"></script>
+
+<script src="{% static 'servise_app/js/main.js'%}"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13'%}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+
+
+<button id="ajaxBTN">AJAX</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+        $( document ).ready(function() {
+			$.ajax({
+				url : 'api/states/',
+				type: 'GET',
+				success: function(result){
+					for (let i = 0; i < result.length; i++) {
+						$('#selectBox1').append(new Option(result[i]['title'], result[i]['id']))
+					}
+				}	
+			});	
+		});
+		
+			
+    </script>
+
+	
+    <script>
+        $( document ).ready(function() {
+			$( "#selectBox1" ).on("change",function() {
+				$("#selectBox2").empty();
+				$.ajax({
+					url : 'api/cities/' + $('#selectBox1').val() + '/',
+					type: 'GET',
+					success: function(result){
+						console.log(result)
+						for (let i = 0; i < result.length; i++) {
+							$('#selectBox2').append(new Option(result[i]['title'], result[i]['id']))
+						}
+					}	
+			 	});	
+			});
+		});
+	</script>
+
+</body>
+</html>

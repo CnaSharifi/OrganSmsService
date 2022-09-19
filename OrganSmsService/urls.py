@@ -17,7 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from service_app.views import Home_view
+
 from user_management.views import Login_view 
+
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -25,13 +28,14 @@ urlpatterns = [
 
     path('captcha/', include('captcha.urls')),
     path('api/',include("common_app.urls")),
+    path('service/',include("service_app.urls")),
 
-    path('', Home_view.as_view()),
+    path('', login_required(Home_view.as_view())),
 
     path('login/',Login_view.as_view() ),
-    path('register/',Login_view.as_view() ),
+    path('api/services/',Login_view.as_view() ),
+
 
     #path('api-auth/', include('rest_framework.urls')),
     
-
 ]

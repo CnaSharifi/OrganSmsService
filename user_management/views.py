@@ -3,11 +3,7 @@ from django.shortcuts import render
 
 from .forms import LoginModelForm
 
-from .serializers import UserSerializer
-
-from rest_framework import viewsets
-
-from django.views.generic import FormView, RedirectView
+from django.views.generic import FormView
 
 from django.contrib.auth import authenticate, login
 
@@ -26,6 +22,8 @@ class Login_view(FormView):
         if user:
             login(self.request,user)
         return super().form_valid(form)
+
+
 
 
     

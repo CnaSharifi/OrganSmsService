@@ -32,13 +32,13 @@
 <body>
 <div class="container-contact100">
 <div class="wrap-contact100">
-<form class="contact100-form validate-form">{% csrf_token %}
+<form id="my_form" class="contact100-form validate-form">{% csrf_token %}
 <span class="contact100-form-title">
 <span style="font-size:65px;">📩</span>
 </span>
 <div class="wrap-input100 validate-input" data-validate="Name is required">
 <span class="label-input100">نـام و نـام خــانـوادگــی </span>
-<input class="input100" type="text" name="title" placeholder="لطفا نام خود را وارد کنید ">
+<input class="input100" type="text" name="name" placeholder="لطفا نام خود را وارد کنید ">
 <span class="focus-input100"></span>
 </div>
 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
@@ -49,7 +49,7 @@
 <div class="wrap-input100 input100-select">
 <span class="label-input100"> لــطــفا اسـتان خــود را انتـخابــ کنــید  </span>
 <div id="test">
-<select id="selectBox1">
+<select id="selectBox1" name='state'>
 
 
 </select>
@@ -59,22 +59,22 @@
 <div class="wrap-input100 input100-select" >
 <span class="label-input100">لــطــفا شــهـر خـود را انتـخابــ کنـیـد</span>
 <div>
-<select name="city" id="selectBox2">
+<select name="city" id="selectBox2" name='city'>
 
 
 </select>
 </div>
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input" data-validate="Message is required">
+<div class="wrap-input100 validate-input">
 <span class="label-input100">پـــیـــام </span>
-<textarea class="input100" name="message" placeholder="لـطـفـا پـیـام خـود را تـایـپ کـنـیـد "></textarea>
+<textarea id="msg" class="input100" name="content" placeholder="لـطـفـا پـیـام خـود را تـایـپ کـنـیـد "></textarea>
 <span class="focus-input100"></span>
 </div>
 <div class="container-contact100-form-btn">
 <div class="wrap-contact100-form-btn">
 <div class="contact100-form-bgbtn"></div>
-<button class="contact100-form-btn">
+<button type="submit" id="BTNsend" name="BTNsend">
 <span>
 ارســال
 <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -150,11 +150,34 @@
 					url : 'api/cities/' + $('#selectBox1').val() + '/',
 					type: 'GET',
 					success: function(result){
-						console.log(result)
 						for (let i = 0; i < result.length; i++) {
 							$('#selectBox2').append(new Option(result[i]['title'], result[i]['id']))
 						}
 					}	
+			 	});	
+			});
+		});
+	</script>
+
+	<script>
+        $( document ).ready(function() {
+			$( "#BTNsend" ).click(function() {
+				data = $('#my_form').serialize(); 
+				$.ajax({
+					url : 'service/services/',
+					type: 'POST',
+					dataType: 'json',
+					data: data,
+					success: function(response){
+
+						console.log(response)
+						console.log("success")
+						
+					},
+					error: function (error){
+						console.log(error)
+						console.log("error")
+					}
 			 	});	
 			});
 		});

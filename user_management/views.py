@@ -20,7 +20,7 @@ class Login_view(FormView):
         password = form.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         if user:
-            login(self.request,user)
+            login(self.request, user)
         return super().form_valid(form)
 
 

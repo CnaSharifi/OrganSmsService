@@ -21,6 +21,7 @@ from service_app.views import Home_view
 from user_management.views import Login_view 
 
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [

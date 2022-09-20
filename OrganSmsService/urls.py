@@ -20,7 +20,7 @@ from service_app.views import Home_view
 
 from user_management.views import Login_view 
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 urlpatterns = [
@@ -30,11 +30,9 @@ urlpatterns = [
     path('api/',include("common_app.urls")),
     path('service/',include("service_app.urls")),
 
-    path('', login_required(Home_view.as_view())),
+    path('', staff_member_required(Home_view.as_view())),
 
     path('login/',Login_view.as_view() ),
-    path('api/services/',Login_view.as_view() ),
-
 
     #path('api-auth/', include('rest_framework.urls')),
     

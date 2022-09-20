@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import sys
 from pathlib import Path
+
+if 'test' in sys.argv:
+            CAPTCHA_TEST_MODE = True 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +27,7 @@ SECRET_KEY = 'django-insecure-)41$p#1ozdhi!l-!p4@txjf^83%fmp44!7^_$g_nd-^^59x&l5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 ALLOWED_HOSTS = []
 

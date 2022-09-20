@@ -12,10 +12,14 @@ class StateViewSet(viewsets.ModelViewSet):
 
 
 
-class CityAPIView(generics.ListAPIView):
+class CitiesOfStateAPIView(generics.ListAPIView):
     serializer_class = CitySerializer
 
     def get_queryset(self):
         stateID = self.kwargs['stateID']
         qs = City.objects.filter(state=stateID)
         return  qs.order_by('id')
+
+class CityAPIView(generics.ListAPIView):
+    serializer_class = CitySerializer
+    queryset = City.objects.all()

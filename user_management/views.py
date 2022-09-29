@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 class Login_view(FormView):
     template_name = 'user_management/login.html'
     form_class = LoginModelForm
-    success_url = '/'
+    success_url = 'service/app/'
 
 
     def form_valid(self, form):

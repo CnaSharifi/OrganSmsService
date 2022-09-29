@@ -10,8 +10,6 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/bootstrap/css/bootstrap.min.css' %}">
 
-<link rel="stylesheet" type="text/css" href="{% static 'servise_app/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-
 <link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/animate/animate.css' %}">
 
 <link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/css-hamburgers/hamburgers.min.css' %}">
@@ -32,16 +30,16 @@
 <body>
 <div class="container-contact100">
 <div class="wrap-contact100">
-<form id="my_form" class="contact100-form validate-form">{% csrf_token %}
+<form id="my_form" class="contact100-form">{% csrf_token %}
 <span class="contact100-form-title">
 <span style="font-size:65px;">📩</span>
 </span>
-<div class="wrap-input100 validate-input" data-validate="Name is required">
+<div class="wrap-input100 validate-input">
 <span class="label-input100">نـام و نـام خــانـوادگــی </span>
 <input class="input100" type="text" name="name" placeholder="لطفا نام خود را وارد کنید ">
 <span class="focus-input100"></span>
 </div>
-<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+<div class="wrap-input100 validate-input">
 <span class="label-input100">ایـمـیل</span>
 <input class="input100" type="text" name="email" placeholder=" لطفا ایمیل خود را وارد کنید  ">
 <span class="focus-input100"></span>
@@ -49,7 +47,7 @@
 <div class="wrap-input100 input100-select">
 <span class="label-input100"> لــطــفا اسـتان خــود را انتـخابــ کنــید  </span>
 <div id="test">
-<select  id="selectBox1" name='state'>
+<select id="selectBox1" name='state'>
 
 	<option>اسـتان</option>
 
@@ -60,7 +58,7 @@
 <div class="wrap-input100 input100-select" >
 <span class="label-input100">لــطــفا شــهـر خـود را انتـخابــ کنـیـد</span>
 <div>
-<select  name="city" id="selectBox2" name='city'>
+<select class="selection-2"  name="city" id="selectBox2" name='city'>
 
 	<option>شـهر</option>
 
@@ -70,13 +68,13 @@
 </div>
 <div class="wrap-input100 validate-input">
 <span class="label-input100">پـــیـــام </span>
-<textarea id="msg" class="input100" name="content" placeholder="لـطـفـا پـیـام خـود را تـایـپ کـنـیـد "></textarea>
+<textarea id="msg" class="input100" name="content" placeholder="لـطـفـا پـیـام خـود را تـایـپ کـنـیـد " required></textarea>
 <span class="focus-input100"></span>
 </div>
 <div class="container-contact100-form-btn">
 <div class="wrap-contact100-form-btn">
 <div class="contact100-form-bgbtn"></div>
-<button class="contact100-form-btn" type="submit" id="BTNsend" name="BTNsend">
+<button class="contact100-form-btn" type='button' id="BTNsend" name="BTNsend">
 <span>
 ارســال
 <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -85,6 +83,7 @@
 </div>
 </div>
 </form>
+
 </div>
 </div>
 <div id="dropDownSelect1"></div>
@@ -109,7 +108,6 @@
 
 <script src="{% static 'servise_app/vendor/countdowntime/countdowntime.js'%}"></script>
 
-<script src="{% static 'servise_app/js/main.js'%}"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13'%}"></script>
 <script>
@@ -128,7 +126,7 @@
 	<script>
         $( document ).ready(function() {
 			$.ajax({
-				url : 'api/state/',
+				url : '/api/state/',
 				type: 'GET',
 				success: function(result){
 					for (let i = 0; i < result.length; i++) {
@@ -147,7 +145,7 @@
 			$( "#selectBox1" ).on("change",function() {
 				$("#selectBox2").empty();
 				$.ajax({
-					url : 'api/city/' + $('#selectBox1').val() + '/',
+					url : '/api/city/' + $('#selectBox1').val() + '/',
 					type: 'GET',
 					success: function(result){
 						for (let i = 0; i < result.length; i++) {
@@ -164,19 +162,18 @@
 			$( "#BTNsend" ).click(function() {
 				data = $('#my_form').serialize(); 
 				$.ajax({
-					url : 'service/services/',
+					url : '/service/messages/',
 					type: 'POST',
 					dataType: 'json',
 					data: data,
 					success: function(response){
 
-						console.log(response)
-						console.log("success")
+						alert('SUCCESS')
 						
 					},
 					error: function (error){
-						console.log(error)
-						console.log("error")
+
+						alert('ERROR : city and message required')
 					}
 			 	});	
 			});

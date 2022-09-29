@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-import sys
+from datetime import timedelta
+import sys, os
 from pathlib import Path
 
 if 'test' in sys.argv:
@@ -29,7 +30,11 @@ SECRET_KEY = 'django-insecure-)41$p#1ozdhi!l-!p4@txjf^83%fmp44!7^_$g_nd-^^59x&l5
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME' : timedelta(days=2)
+}
 
 
 # Application definition
@@ -88,12 +93,12 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '12123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('DATABASE-NAME', 'postgres'),
+        'USER': os.environ.get('DATABASE-USER', 'postgres'),
+        'PASSWORD': os.environ.get('DATABASE-PASSWORD', '12123'),
+        'HOST': os.environ.get('DATABASE-HOST', 'localhost'),
+        'PORT': os.environ.get('DATABASE-PORT', 5432),
     }
 }
 
@@ -128,7 +133,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_URL = 'login/'
+LOGIN_URL = '/'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -141,8 +146,13 @@ STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = BASE_DIR / 'meida'
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

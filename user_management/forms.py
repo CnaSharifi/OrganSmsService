@@ -20,4 +20,6 @@ class LoginModelForm(ModelForm):
         user = authenticate(username=username, password=password)
         if user is None:
             self.add_error('username','نـام کاربـری یا رمـز عـبور اشـتباه اسـت')
+        elif user.is_staff == False:
+            self.add_error('username', 'User is not admin (super user) !')
         return cleaned_data

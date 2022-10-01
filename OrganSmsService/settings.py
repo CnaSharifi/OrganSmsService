@@ -96,8 +96,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DATABASE-NAME', 'postgres'),
         'USER': os.environ.get('DATABASE-USER', 'postgres'),
-        'PASSWORD': os.environ.get('DATABASE-PASSWORD', '12123'),
-        'HOST': os.environ.get('DATABASE-HOST', 'localhost'),
+        'PASSWORD': os.environ.get('DATABASE-PASSWORD', 'postgres'),
+        'HOST': os.environ.get('DATABASE-HOST', 'database'),
         'PORT': os.environ.get('DATABASE-PORT', 5432),
     }
 }
@@ -139,8 +139,8 @@ LOGIN_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = BASE_DIR / 'meida'
@@ -151,8 +151,3 @@ MEDIA_ROOT = BASE_DIR / 'meida'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}

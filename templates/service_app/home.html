@@ -8,8 +8,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/bootstrap/css/bootstrap.min.css' %}">
-
 <link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/animate/animate.css' %}">
 
 <link rel="stylesheet" type="text/css" href="{% static 'servise_app/vendor/css-hamburgers/hamburgers.min.css' %}">
@@ -47,7 +45,7 @@
 <div class="wrap-input100 input100-select">
 <span class="label-input100"> لــطــفا اسـتان خــود را انتـخابــ کنــید  </span>
 <div id="test">
-<select id="selectBox1" name='state'>
+<select id="selectBox1" name='state' style='padding:3px; margin:3px'>
 
 	<option>اسـتان</option>
 
@@ -58,7 +56,7 @@
 <div class="wrap-input100 input100-select" >
 <span class="label-input100">لــطــفا شــهـر خـود را انتـخابــ کنـیـد</span>
 <div>
-<select class="selection-2"  name="city" id="selectBox2" name='city'>
+<select name="city" id="selectBox2" name='city' style='padding:3px; margin:3px'>
 
 	<option>شـهر</option>
 
@@ -121,7 +119,8 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="{% static 'servise_app/ajax/ajax.js'%}"></script>
 
 	<script>
         $( document ).ready(function() {
@@ -145,7 +144,7 @@
 			$( "#selectBox1" ).on("change",function() {
 				$("#selectBox2").empty();
 				$.ajax({
-					url : '/api/city/' + $('#selectBox1').val() + '/',
+					url : '/api/city?parent=' + $('#selectBox1').val(),
 					type: 'GET',
 					success: function(result){
 						for (let i = 0; i < result.length; i++) {

@@ -37,7 +37,7 @@ class ApiTestCase(TestCase):
     
     def test_api_cities_of_state_list(self):
 
-        response = self.client.get(f'/api/city/{self.random_num}/').json()
+        response = self.client.get(f'/api/city/?parent={self.random_num}').json()
         self.assertEqual(len(response), City.objects.filter(state= self.random_num).count())
 
         city_title_json = response[-1]['title']

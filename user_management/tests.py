@@ -26,7 +26,7 @@ class AthenticationTestCase(TestCase):
         self.assertTrue(form.is_valid())
 
         self.client.login(username=self.login_post_data['username'], password=self.login_post_data['password']) 
-        response=self.client.get('/')
+        response=self.client.get('/service/app/')
         self.assertEqual(response.status_code, 200)  
 
 
@@ -49,8 +49,11 @@ class AthenticationTestCase(TestCase):
 
         self.login_post_data['username'] = 'user_test2'
         self.login_post_data['password'] = 'qwerty'
-        self.client.login(username=self.login_post_data['username'], password=self.login_post_data['password']) 
-        response=self.client.get('/')
+
+        form = LoginModelForm(data = self.login_post_data)
+        self.assertFalse(form.is_valid())
+
+        response=self.client.get('/service/app/')
         self.assertEqual(response.status_code, 302)  
 
 
@@ -60,7 +63,7 @@ class AthenticationTestCase(TestCase):
         form = LoginModelForm(data = self.login_post_data)
         self.assertFalse(form.is_valid())
         
-        response = self.client.get('/')
+        response = self.client.get('/service/app/')
         self.assertEqual(response.status_code, 302)  
 
 

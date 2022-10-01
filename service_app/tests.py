@@ -23,7 +23,7 @@ class ServiceTestCase(TestCase):
         self.assertEqual(ServiceModel.objects.all().count(), 0)
 
         data = {"city" : self.city.id , "content" : "Message is sent !"}
-        response=self.client.post( '/service/services/' , data)
+        response=self.client.post( '/service/messages/' , data)
         self.assertEqual(response.status_code , 201)
 
         self.assertEqual(ServiceModel.objects.all().count(), 1)

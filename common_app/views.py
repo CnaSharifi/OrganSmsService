@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from rest_framework import generics
 
 from .serializers import CitySerializer, StateSerializer
 from .models import State, City
@@ -10,16 +9,16 @@ class StateViewSet(viewsets.ModelViewSet):
     queryset = State.objects.all().order_by('id')
     serializer_class = StateSerializer
 
-
-
-class CitiesOfStateAPIView(generics.ListAPIView):
-    serializer_class = CitySerializer
-
-    def get_queryset(self):
-        stateID = self.kwargs['stateID']
-        qs = City.objects.filter(state=stateID)
-        return  qs.order_by('id')
-
-class CityAPIView(generics.ListAPIView):
+class CityViewSet(viewsets.ModelViewSet):
     serializer_class = CitySerializer
     queryset = City.objects.all()
+
+    def get_queryset(self): 
+        parent = self.request.query_params.get('parent',None)
+        #regions = self.request.query_params.get("regions", None)
+        if parent:
+            qs = City.objects.filter(state=parent)
+            pass
+        else:
+            qs = City.objects.all()
+        return qs

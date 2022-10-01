@@ -44,8 +44,6 @@ class AthenticationTestCase(TestCase):
 
     def test_correct_data_login_form_NOT_superuser(self):
 
-        form = LoginModelForm(data = self.login_post_data)
-        self.assertTrue(form.is_valid())
 
         self.login_post_data['username'] = 'user_test2'
         self.login_post_data['password'] = 'qwerty'
